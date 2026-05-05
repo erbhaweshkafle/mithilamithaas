@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Mithila Mithaas | Taste of Terai Nepal</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: '#7c4400',
+                        accent: '#ff9d00',
+                        cream: '#fdfbf9', // Warmer cream
+                        dark: '#2c1e0b'
+                    },
+                    fontFamily: {
+                        serif: ['"Playfair Display"', 'serif'],
+                        sans: ['Poppins', '"Noto Sans Devanagari"', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'soft': '0 10px 40px -10px rgba(124, 68, 0, 0.1)',
+                        'float': '0 20px 25px -5px rgba(255, 157, 0, 0.2)',
+                    },
+                    backgroundImage: {
+                        'pattern': "url('data:image/svg+xml,%3Csvg width=\\'20\\' height=\\'20\\' viewBox=\\'0 0 20 20\\' xmlns=\\'http://www.w3.org/2000/svg\\'%3E%3Cg fill=\\'%237c4400\\' fill-opacity=\\'0.02\\' fill-rule=\\'evenodd\\'%3E%3Ccircle cx=\\'3\\' cy=\\'3\\' r=\\'3\\'/%3E%3Ccircle cx=\\'13\\' cy=\\'13\\' r=\\'3\\'/%3E%3C/g%3E%3C/svg%3E')",
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { background-color: #fdfbf9; }
+        ::-webkit-scrollbar { width: 0px; background: transparent; }
+        
+        .mithila-border {
+            border: 2px solid transparent;
+            border-image: repeating-linear-gradient(45deg, #7c4400, #7c4400 10px, transparent 10px, transparent 20px) 1;
+        }
+
+        .pb-safe { padding-bottom: calc(env(safe-area-inset-bottom) + 80px); }
+        
+        /* Modal Animation */
+        .fade-in { animation: fadeIn 0.3s ease-out forwards; }
+        @keyframes fadeIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+    </style>
+</head>
+<body class="font-sans text-dark antialiased bg-pattern pb-safe relative">
+
+    <!-- 0. ENTRY POPUP (VIDEO MODAL) -->
+    <div id="video-modal" class="fixed inset-0 z-[100] bg-black/80 hidden flex-col justify-center items-center p-4 backdrop-blur-sm transition-opacity">
+        <div class="bg-cream rounded-2xl overflow-hidden max-w-[320px] w-full relative fade-in shadow-2xl border border-brand/20">
+            <!-- Close Button -->
+            <button onclick="closeModal()" class="absolute top-3 right-3 bg-black/60 text-white w-8 h-8 rounded-full flex items-center justify-center z-10 hover:bg-brand transition" aria-label="Close">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+            
+            <!-- FB Embed -->
+            <div class="flex justify-center bg-[#000] relative pt-2">
+                <iframe src="https://www.facebook.com/plugins/video.php?height=476&href=https%3A%2F%2Fwww.facebook.com%2Freel%2F1622719968846294%2F&show_text=false&width=267&t=0" width="267" height="476" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+            </div>
+            
+            <!-- Caption -->
+            <div class="p-5 text-sm">
+                <p class="font-serif font-bold text-lg text-brand mb-2">Khajuriya from Mithila Mithaas</p>
+                <p class="text-dark/80 mb-3 leading-relaxed">Bringing you the true taste of Mithila culture. Perfect for breakfast or evening tea.</p>
+                
+                <div class="flex flex-col gap-3 mt-4">
+                    <p class="font-semibold text-brand flex items-center justify-center gap-2 bg-brand/5 py-2 rounded-lg">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+                        9808773753 / 9823399775
+                    </p>
+                    <button onclick="closeModal(); document.getElementById('order').scrollIntoView({behavior:'smooth'})" class="w-full bg-accent text-dark py-3 rounded-xl font-bold hover:bg-accent/90 transition shadow-sm">
+                        Order Now
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 1. HERO SECTION -->
+    <section id="home" class="relative pt-12 pb-14 px-4 text-center overflow-hidden flex flex-col items-center">
+    <!-- Logo Setup -->
+<div class="inline-flex items-center justify-center w-28 h-28 rounded-full bg-brand text-cream shadow-soft mb-8 relative overflow-hidden">
+    
+    <!-- Optional: Keeps the subtle dashed border over the image -->
+    <div class="absolute inset-2 border border-cream/30 rounded-full border-dashed z-20 pointer-events-none"></div>
+    
+    <!-- Your Logo Image -->
+    <img src="images/logo.webp" alt="Mithila Mithaas Logo" class="absolute inset-0 w-full h-full object-cover z-10">
+    
+</div>
+
+        <h2 class="font-serif text-4xl md:text-5xl font-bold text-brand mb-4 leading-tight">
+            Taste of Terai Nepal
+        </h2>
+        <p class="text-xl mb-3 font-semibold text-brand/90 font-serif">मायाले बनेको स्वाद ❤️</p>
+        <p class="text-sm md:text-base text-dark/70 mb-4 font-medium uppercase tracking-wider">
+            Homemade • Healthy • No Preservatives
+        </p>
+        
+        <!-- Emotional Line -->
+        <div class="bg-brand/5 px-6 py-3 rounded-2xl border border-brand/10 mb-8 max-w-sm">
+            <p class="text-lg font-bold text-brand">शुद्धताको असली स्वाद - Mithila Mithaas 😊</p>
+        </div>
+
+        <div class="inline-flex items-center gap-2 text-brand text-sm font-semibold mb-6">
+            <svg class="w-5 h-5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+            <span id="hero-countdown">Offer valid for 1 week only!</span>
+        </div>
+
+        <a href="#order" class="bg-brand text-cream px-10 py-4 rounded-full font-bold text-lg shadow-soft hover:bg-brand/90 transition transform hover:-translate-y-1 active:translate-y-0 flex items-center gap-2">
+            Order Now
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+        </a>
+    </section>
+
+    <!-- 3. HOW IT STARTED (STORY SECTION) -->
+    <section class="py-14 px-4 bg-brand text-cream relative">
+        <div class="absolute inset-0 opacity-10 bg-[url('data:image/svg+xml,%3Csvg width=\\'40\\' height=\\'40\\' viewBox=\\'0 0 40 40\\' xmlns=\\'http://www.w3.org/2000/svg\\'%3E%3Cpath d=\\'M20 0L40 20L20 40L0 20L20 0Z\\' fill=\\'%23ffffff\\' fill-rule=\\'evenodd\\'/%3E%3C/svg%3E')] bg-repeat"></div>
+        <div class="max-w-2xl mx-auto text-center relative z-10">
+            <span class="text-accent text-sm font-bold tracking-widest uppercase mb-2 block">Our Roots</span>
+            <h2 class="font-serif text-3xl md:text-4xl font-bold mb-6">From Home Kitchen to Your Heart</h2>
+            <div class="space-y-4 text-cream/90 font-medium leading-relaxed">
+                <p>Started with authentic homemade recipes straight from the heart of the Mithila region.</p>
+                <p>A family tradition passed down through generations, preserved in every bite.</p>
+                <p>We prepare in small batches using real, pure ingredients. Built entirely from love, not factories.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 2. PRODUCT SECTION (DETAILED DESCRIPTIONS) -->
+    <section id="products" class="py-16 px-4 max-w-5xl mx-auto">
+        <div class="text-center mb-10">
+            <h2 class="font-serif text-3xl font-bold text-brand mb-2">Authentic Flavors</h2>
+            <p class="text-dark/60">Experience the true taste of Mithila</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            
+            <!-- Khajuriya -->
+            <div class="bg-white rounded-2xl shadow-soft overflow-hidden border border-brand/10 flex flex-col group">
+                <div class="relative h-60 w-full bg-brand/5 overflow-hidden">
+                    <img src="images/products/khajuriya.webp" 
+                         
+                         alt="Khajuriya" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
+                </div>
+                <div class="p-6 flex flex-col flex-grow">
+                    <h3 class="font-serif text-2xl font-bold text-brand mb-2">Khajuriya</h3>
+                    <p class="text-dark/80 text-sm mb-4 leading-relaxed">Crispy outside, soft inside traditional Mithila sweet. Perfect with tea or breakfast.</p>
+                    <div class="mt-auto border-t border-brand/10 pt-4">
+                        <p class="italic text-brand/80 text-sm mb-4">"Experience the sweetness of Mithila in every bite"</p>
+                        <button onclick="selectProduct('Khajuriya')" class="w-full bg-accent text-dark px-5 py-3 rounded-xl font-semibold shadow-sm hover:bg-accent/90 transition">Add to Order</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Karu Achaar -->
+            <div class="bg-white rounded-2xl shadow-soft overflow-hidden border border-brand/10 flex flex-col group">
+                <div class="relative h-60 w-full bg-brand/5 overflow-hidden">
+                    <img src="images/products/karu-achaar.webp" 
+             
+                         alt="Karu Achaar" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
+                </div>
+                <div class="p-6 flex flex-col flex-grow">
+                    <h3 class="font-serif text-2xl font-bold text-brand mb-2">Karu Achaar</h3>
+                    <p class="text-dark/80 text-sm mb-4 leading-relaxed">Made with green chilli, ginger, garlic, and mustard. No chilli powder, only natural spice. Bold, spicy, and deeply addictive.</p>
+                    <div class="mt-auto border-t border-brand/10 pt-4">
+                        <p class="italic text-brand/80 text-sm mb-4">"Turn up the heat"</p>
+                        <button onclick="selectProduct('Karu Achaar')" class="w-full bg-accent text-dark px-5 py-3 rounded-xl font-semibold shadow-sm hover:bg-accent/90 transition">Add to Order</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Barogra Achaar -->
+            <div class="bg-white rounded-2xl shadow-soft overflow-hidden border border-brand/10 flex flex-col group">
+                <div class="relative h-60 w-full bg-brand/5 overflow-hidden">
+                    <img src="images/products/barogra-achaar.webp" 
+                        
+                         alt="Barogra Achaar" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
+                </div>
+                <div class="p-6 flex flex-col flex-grow">
+                    <h3 class="font-serif text-2xl font-bold text-brand mb-2">Barogra Achaar</h3>
+                    <p class="text-dark/80 text-sm mb-4 leading-relaxed">Mithila’s special seasonal achaar. Tangy, spicy, and deeply flavorful. Crafted using traditional techniques.</p>
+                    <div class="mt-auto border-t border-brand/10 pt-4">
+                        <p class="italic text-brand/80 text-sm mb-4">"New Year, new flavors"</p>
+                        <button onclick="selectProduct('Barogra Achaar')" class="w-full bg-accent text-dark px-5 py-3 rounded-xl font-semibold shadow-sm hover:bg-accent/90 transition">Add to Order</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pure Cow Ghee -->
+            <div class="bg-white rounded-2xl shadow-soft overflow-hidden border border-brand/10 flex flex-col group lg:col-start-1 lg:col-span-1">
+                <div class="relative h-60 w-full bg-brand/5 overflow-hidden">
+                    <img src="images/products/cow-ghee.webp" 
+            
+                         alt="Pure Cow Ghee" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
+                </div>
+                <div class="p-6 flex flex-col flex-grow">
+                    <h3 class="font-serif text-2xl font-bold text-brand mb-2">Pure Cow Ghee</h3>
+                    <p class="text-dark/80 text-sm mb-4 leading-relaxed">Traditional preparation with absolutely no adulteration. Pure trust, quality, and aroma.</p>
+                    <div class="mt-auto border-t border-brand/10 pt-4">
+                        <p class="font-bold text-brand/80 text-sm mb-4">शुद्धताको असली स्वाद</p>
+                        <button onclick="selectProduct('Pure Cow Ghee')" class="w-full bg-accent text-dark px-5 py-3 rounded-xl font-semibold shadow-sm hover:bg-accent/90 transition">Add to Order</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Combo Highlight -->
+            <div class="bg-brand/5 rounded-2xl shadow-inner overflow-hidden border-2 border-brand/20 flex flex-col group md:col-span-2 lg:col-span-2 relative">
+                <div class="absolute top-4 right-4 bg-accent text-dark text-xs font-bold px-3 py-1 rounded-full z-10">BEST VALUE</div>
+                <div class="flex flex-col md:flex-row h-full">
+                    <div class="md:w-1/2 relative h-48 md:h-auto overflow-hidden">
+                        <img src="images/products/combo.webp" 
+                             
+                             alt="Khajuriya + Barogra Combo" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
+                    </div>
+                    <div class="p-6 md:w-1/2 flex flex-col justify-center">
+                        <h3 class="font-serif text-3xl font-bold text-brand mb-2">Combo Highlight</h3>
+                        <p class="text-xl font-semibold text-dark mb-4">Khajuriya | Karu Achaar | Barogra | ½ kg Ghee</p>
+                        <p class="italic text-dark/70 text-base mb-6 border-l-4 border-accent pl-4 py-1">"An unexpected duo that hits just right"</p>
+                        <button onclick="selectProduct('Combo: Khajuriya + Barogra')" class="w-full bg-brand text-cream px-5 py-4 rounded-xl font-bold shadow-soft hover:bg-brand/90 transition">Order the Combo</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- 4 & 5. IMPACT & CULTURE -->
+    <section class="py-16 bg-white border-y border-brand/10">
+        <div class="max-w-5xl mx-auto px-4 grid grid-cols-1 md:grid-cols-2 gap-12">
+            <!-- Impact -->
+            <div class="flex flex-col justify-center p-8 bg-cream rounded-3xl mithila-border">
+                <div class="w-12 h-12 bg-accent/20 rounded-full flex items-center justify-center text-accent mb-6">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                </div>
+                <h3 class="font-serif text-2xl font-bold text-brand mb-4">Empowering Terai Communities</h3>
+                <ul class="space-y-3 text-dark/80 text-sm font-medium">
+                    <li class="flex items-start gap-2">
+                        <span class="text-accent mt-0.5">•</span> Supporting local farmers & producers
+                    </li>
+                    <li class="flex items-start gap-2">
+                        <span class="text-accent mt-0.5">•</span> Creating steady income opportunities
+                    </li>
+                    <li class="flex items-start gap-2">
+                        <span class="text-accent mt-0.5">•</span> Preserving traditional food practices
+                    </li>
+                    <li class="flex items-start gap-2">
+                        <span class="text-accent mt-0.5">•</span> Promoting the rural economy
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Culture -->
+            <div class="flex flex-col justify-center p-8 bg-brand text-cream rounded-3xl relative overflow-hidden">
+                <div class="absolute -top-10 -right-10 w-32 h-32 bg-accent/20 rounded-full blur-2xl"></div>
+                <div class="w-12 h-12 bg-cream/10 rounded-full flex items-center justify-center text-accent mb-6 relative z-10">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                </div>
+                <h3 class="font-serif text-2xl font-bold mb-4 relative z-10">Keeping Mithila Culture Alive</h3>
+                <ul class="space-y-3 text-cream/90 text-sm font-medium relative z-10">
+                    <li class="flex items-start gap-2">
+                        <span class="text-accent mt-0.5">•</span> Introducing Mithila flavors to modern consumers
+                    </li>
+                    <li class="flex items-start gap-2">
+                        <span class="text-accent mt-0.5">•</span> Reviving forgotten ancient recipes
+                    </li>
+                    <li class="flex items-start gap-2">
+                        <span class="text-accent mt-0.5">•</span> Making traditional snacks accessible online
+                    </li>
+                    <li class="flex items-start gap-2">
+                        <span class="text-accent mt-0.5">•</span> Fostering cultural pride through food
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. MISSION / VISION / VALUES -->
+    <section class="py-16 px-4 bg-cream">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="font-serif text-3xl font-bold text-brand mb-12">Our Philosophy</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-left">
+                <!-- Mission -->
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-brand/5">
+                    <h3 class="font-bold text-lg text-brand mb-3 uppercase tracking-wider border-b border-brand/10 pb-2">Mission</h3>
+                    <p class="text-sm text-dark/80 mb-2">Deliver authentic Mithila taste to every home.</p>
+                    <p class="text-sm text-dark/80 mb-2">Promote healthy, preservative-free food.</p>
+                    <p class="text-sm text-dark/80">Support local producers directly.</p>
+                </div>
+                <!-- Vision -->
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-brand/5">
+                    <h3 class="font-bold text-lg text-brand mb-3 uppercase tracking-wider border-b border-brand/10 pb-2">Vision</h3>
+                    <p class="text-sm text-dark/80 mb-2">Become Nepal’s most trusted traditional food brand.</p>
+                    <p class="text-sm text-dark/80 mb-2">Take Mithila cuisine global.</p>
+                    <p class="text-sm text-dark/80">Build a community around cultural food.</p>
+                </div>
+                <!-- Values -->
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-brand/5">
+                    <h3 class="font-bold text-lg text-brand mb-3 uppercase tracking-wider border-b border-brand/10 pb-2">Values</h3>
+                    <div class="grid grid-cols-2 gap-x-2 gap-y-2 text-sm text-dark/80 font-medium">
+                        <span>✓ Purity</span>
+                        <span>✓ Trust</span>
+                        <span>✓ Tradition</span>
+                        <span>✓ Quality</span>
+                        <span>✓ Support</span>
+                        <span>✓ Authentic</span>
+                        <span>✓ Sustain</span>
+                        <span>✓ Transparent</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 7. SOCIAL PROOF (TESTIMONIALS) -->
+    <section class="py-14 bg-brand/5 border-t border-brand/10">
+        <div class="max-w-5xl mx-auto px-4">
+            <h2 class="font-serif text-2xl md:text-3xl font-bold text-center text-brand mb-10">"We let strangers try our Khajuriya..."</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Reaction 1 -->
+                <div class="bg-white p-6 rounded-2xl shadow-sm relative">
+                    <div class="text-accent text-4xl font-serif absolute top-4 right-4 opacity-20">"</div>
+                    <div class="flex items-center gap-1 mb-3 text-accent">
+                        <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                    </div>
+                    <p class="text-dark/80 font-medium mb-4">"It literally tastes like the ones my grandmother used to make. The crispiness is just perfect!"</p>
+                    <p class="text-sm font-bold text-brand uppercase tracking-wider">— Suman T.</p>
+                </div>
+                <!-- Reaction 2 -->
+                <div class="bg-white p-6 rounded-2xl shadow-sm relative">
+                    <div class="text-accent text-4xl font-serif absolute top-4 right-4 opacity-20">"</div>
+                    <div class="flex items-center gap-1 mb-3 text-accent">
+                        <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                    </div>
+                    <p class="text-dark/80 font-medium mb-4">"The Barogra achaar with the Khajuriya is a combo I didn't know I needed. Pure magic and so authentic."</p>
+                    <p class="text-sm font-bold text-brand uppercase tracking-wider">— Anjali M.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 9. ORDER FORM SECTION -->
+    <section id="order" class="py-14 px-4 max-w-md mx-auto relative scroll-mt-20">
+        <div class="bg-white p-6 md:p-8 rounded-3xl shadow-soft border border-brand/5 relative z-10">
+            <div id="form-container">
+                <h2 class="font-serif text-3xl font-bold text-brand mb-2 text-center">Place Your Order</h2>
+                <p class="text-center text-sm text-dark/60 mb-6">Cash on Delivery Available within Kathmandu Valley.</p>
+
+                <form id="orderForm" class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium text-brand mb-1">Select Product(s) *</label>
+                        <select id="productSelect" required class="w-full bg-cream border border-brand/20 rounded-xl px-4 py-3 text-dark focus:outline-none focus:border-brand focus:ring-1 focus:ring-brand appearance-none">
+                            <option value="">-- Choose a Product --</option>
+                            <option value="Combo: Khajuriya + Barogra">Combo: Khajuriya + Barogra + Karu Achaar + 1/2 KG Ghee</option>
+                            <option value="Khajuriya">Khajuriya</option>
+                            <option value="Karu Achaar">Karu Achaar</option>
+                            <option value="Barogra Achaar">Barogra Achaar</option>
+                            <option value="Pure Cow Ghee">Pure Cow Ghee</option>
+                            <option value="Multiple Items">Multiple Items (We'll verify on call)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-brand mb-1">Full Name *</label>
+                        <input type="text" id="name" required placeholder="Your full name" class="w-full bg-cream border border-brand/20 rounded-xl px-4 py-3 text-dark focus:outline-none focus:border-brand focus:ring-1 focus:ring-brand">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-brand mb-1">Phone Number *</label>
+                        <input type="tel" id="phone" required placeholder="9800000000" pattern="[0-9]{10}" class="w-full bg-cream border border-brand/20 rounded-xl px-4 py-3 text-dark focus:outline-none focus:border-brand focus:ring-1 focus:ring-brand">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-brand mb-1">Delivery Address *</label>
+                        <textarea id="address" required placeholder="Exact delivery location" rows="2" class="w-full bg-cream border border-brand/20 rounded-xl px-4 py-3 text-dark focus:outline-none focus:border-brand focus:ring-1 focus:ring-brand resize-none"></textarea>
+                    </div>
+
+                    <input type="hidden" id="source" value="Website Direct">
+
+                    <button type="submit" id="submitBtn" class="w-full bg-brand text-cream font-bold text-lg py-4 rounded-xl mt-4 shadow-float hover:bg-brand/90 active:scale-95 transition-all flex justify-center items-center gap-2">
+                        <span>Confirm Order</span>
+                        <!-- Loading Spinner (Hidden) -->
+                        <svg id="spinner" class="animate-spin h-5 w-5 text-white hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                    </button>
+                </form>
+            </div>
+
+            <!-- 10. SUCCESS STATE -->
+            <div id="success-container" class="hidden text-center py-8 fade-in">
+                <div class="w-20 h-20 bg-green-100 text-green-500 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                </div>
+                <h2 class="font-serif text-3xl font-bold text-brand mb-2">धन्यवाद 🙏</h2>
+                <p class="text-dark/80 mb-6">Your order has been received.<br>We will contact you shortly to confirm.</p>
+                <button onclick="resetForm()" class="text-brand font-semibold underline decoration-accent decoration-2 underline-offset-4">Place another order</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- 8. ORDER FROM PARTNERS -->
+    <section class="py-12 bg-white border-t border-brand/10">
+        <div class="max-w-2xl mx-auto px-4">
+            <div class="bg-cream rounded-2xl p-6 flex flex-col md:flex-row items-center justify-between text-center md:text-left border border-brand/5 shadow-sm gap-4">
+                <div>
+                    <h3 class="font-serif text-xl font-bold text-brand mb-1">Also Available On</h3>
+                    <p class="text-sm text-dark/70">For quick local delivery in Kathmandu</p>
+                </div>
+                <div class="flex items-center gap-4 bg-white rounded-xl p-3 border border-gray-100 min-w-[200px] justify-between">
+                    <div class="flex items-center gap-2">
+                        <!-- Placeholder for OnePasal Logo -->
+                        <div class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center text-white font-bold text-xs">OP</div>
+                        <span class="font-semibold text-dark text-sm">OnePasal</span>
+                    </div>
+                    <a href="https://onepasal.com/downloads" class="text-xs bg-gray-100 hover:bg-gray-200 text-dark px-3 py-1.5 rounded-lg font-medium transition whitespace-nowrap">Order Here</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 11 & 12. CONTACT & SOCIAL FOOTER -->
+    <footer class="bg-dark text-cream pt-16 pb-24 md:pb-12 text-center md:text-left">
+        <div class="max-w-5xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-10">
+            <div>
+                <h4 class="font-serif text-2xl font-bold text-accent mb-4">Mithila Mithaas</h4>
+                <p class="text-sm opacity-80 mb-4">Authentic homemade taste from Terai, Nepal. Preserving culture in every bite.</p>
+            </div>
+            
+            <div>
+                <h4 class="font-bold mb-4 uppercase tracking-wider text-sm opacity-60">Contact Us</h4>
+                <div class="flex flex-col gap-3 items-center md:items-start text-sm">
+                    <p class="flex items-start gap-2 opacity-90">
+                        <svg class="w-5 h-5 text-accent shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                        Bijay Chowk, Kathmandu,<br>Nepal, 44600
+                    </p>
+                    <a href="tel:9808773753" class="flex items-center gap-2 hover:text-accent transition opacity-90">
+                        <svg class="w-5 h-5 text-accent shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+                        980-8773753 / 9823399775
+                    </a>
+                    <a href="mailto:mithaasmithila@gmail.com" class="flex items-center gap-2 hover:text-accent transition opacity-90">
+                        <svg class="w-5 h-5 text-accent shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                        mithaasmithila@gmail.com
+                    </a>
+                </div>
+            </div>
+
+            <div>
+                <h4 class="font-bold mb-4 uppercase tracking-wider text-sm opacity-60">Follow Us</h4>
+                <p class="text-sm opacity-80 mb-4">Follow us for daily स्वाद & offers.</p>
+                <div class="flex justify-center md:justify-start gap-4">
+                    <a href="https://www.facebook.com/profile.php?id=61587273922595" target="_blank" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-accent hover:text-dark transition">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.469h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.469h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                    </a>
+                    <a href="https://www.instagram.com/mithilamithaas/" target="_blank" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-accent hover:text-dark transition">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="mt-12 text-xs opacity-40">
+            &copy; <span id="year"></span> Mithila Mithaas. All rights reserved.
+        </div>
+    </footer>
+
+    <!-- 13. FLOATING WHATSAPP BUTTON -->
+    <a href="https://wa.me/9779808773753?text=Hi,%20I%20want%20to%20order%20Mithila%20Mithaas%20products%20%F0%9F%99%8F" target="_blank" 
+       class="fixed bottom-24 md:bottom-8 right-4 md:right-8 bg-[#25D366] text-white w-14 h-14 rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition z-40 group">
+        <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.391.86s.274.072.376-.043c.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.1.824zm-3.423-14.416c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm.029 18.88c-1.161 0-2.305-.292-3.318-.844l-3.677.964.984-3.595c-.607-1.052-.927-2.246-.926-3.468.001-3.825 3.113-6.937 6.937-6.937 3.825 0 6.938 3.112 6.938 6.937 0 3.824-3.113 6.938-6.938 6.938z"/></svg>
+    </a>
+
+    <!-- 14. MOBILE FOOTER (APP STYLE) -->
+    <div class="fixed bottom-0 w-full bg-white border-t border-gray-200 flex justify-around items-center py-3 px-2 z-50 md:hidden shadow-[0_-5px_20px_rgba(0,0,0,0.05)]">
+        <a href="#home" class="flex flex-col items-center text-dark/60 hover:text-brand transition">
+            <svg class="w-6 h-6 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
+            <span class="text-[10px] font-medium">Home</span>
+        </a>
+        <a href="#products" class="flex flex-col items-center text-dark/60 hover:text-brand transition">
+            <svg class="w-6 h-6 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
+            <span class="text-[10px] font-medium">Products</span>
+        </a>
+        <a href="#order" class="flex flex-col items-center text-brand relative group">
+            <div class="absolute -top-5 bg-accent text-dark w-10 h-10 rounded-full flex items-center justify-center shadow-lg border-4 border-white transition transform">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+            </div>
+            <span class="text-[10px] font-bold mt-5">Order</span>
+        </a>
+        <a href="https://wa.me/9779808773753" target="_blank" class="flex flex-col items-center text-dark/60 hover:text-[#25D366] transition">
+            <svg class="w-6 h-6 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>
+            <span class="text-[10px] font-medium">WhatsApp</span>
+        </a>
+        <button onclick="sharePage()" class="flex flex-col items-center text-dark/60 hover:text-brand transition">
+            <svg class="w-6 h-6 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"></path></svg>
+            <span class="text-[10px] font-medium">Support</span>
+        </button>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // Modal Logic
+        window.addEventListener('DOMContentLoaded', () => {
+            // Show modal 1 second after page load
+            setTimeout(() => {
+                const modal = document.getElementById('video-modal');
+                modal.classList.remove('hidden');
+                modal.classList.add('flex');
+                document.body.style.overflow = 'hidden'; // Prevent scrolling
+            }, 1000);
+        });
+
+        function closeModal() {
+            const modal = document.getElementById('video-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+            document.body.style.overflow = ''; // Restore scrolling
+        }
+
+        // Current Year for Footer
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Product Selection Helper
+        function selectProduct(productName) {
+            const select = document.getElementById('productSelect');
+            select.value = productName;
+            document.getElementById('order').scrollIntoView({ behavior: 'smooth' });
+            
+            select.classList.add('ring-2', 'ring-accent');
+            setTimeout(() => select.classList.remove('ring-2', 'ring-accent'), 1000);
+        }
+
+        // Web Share API helper (with fallback fix)
+        function sharePage() {
+            if (navigator.share) {
+                let shareUrl = window.location.href;
+                if (!shareUrl.startsWith('http')) { shareUrl = 'https://mithilamithaas.com'; }
+                const shareData = {
+                    title: 'Mithila Mithaas - Taste of Terai',
+                    text: 'Authentic homemade taste from Terai, Nepal! Try their Khajuriya and Pickles.',
+                    url: shareUrl,
+                };
+                navigator.share(shareData).catch(error => fallbackShare(shareUrl));
+            } else {
+                fallbackShare(window.location.href);
+            }
+        }
+        function fallbackShare(url) {
+            try {
+                const textArea = document.createElement("textarea");
+                textArea.value = url;
+                textArea.style.position = "fixed";
+                document.body.appendChild(textArea);
+                textArea.focus();
+                textArea.select();
+                const successful = document.execCommand('copy');
+                document.body.removeChild(textArea);
+                alert(successful ? "Link copied to clipboard!" : "Please copy link from browser.");
+            } catch (err) { alert("Please copy link from browser to share."); }
+        }
+
+        // Form Handling (Google Sheets Webhook Placeholder)
+        document.getElementById('orderForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const btn = document.getElementById('submitBtn');
+            const spinner = document.getElementById('spinner');
+            const btnText = btn.querySelector('span');
+            
+            btn.disabled = true;
+            spinner.classList.remove('hidden');
+            btnText.textContent = "Processing...";
+
+            const formData = {
+                product: document.getElementById('productSelect').value,
+                name: document.getElementById('name').value,
+                phone: document.getElementById('phone').value,
+                address: document.getElementById('address').value,
+                source: document.getElementById('source').value,
+                timestamp: new Date().toISOString()
+            };
+
+            /* ====================================================
+             GOOGLE SHEETS INTEGRATION PLACEHOLDER 
+             Replace 'YOUR_WEBHOOK_URL_HERE' with Apps Script URL
+             ==================================================== */
+            const GOOGLE_SHEETS_WEBHOOK_URL = 'YOUR_WEBHOOK_URL_HERE';
+
+            // Simulation for demo
+            setTimeout(() => {
+                document.getElementById('form-container').classList.add('hidden');
+                document.getElementById('success-container').classList.remove('hidden');
+                
+                btn.disabled = false;
+                spinner.classList.add('hidden');
+                btnText.textContent = "Confirm Order";
+            }, 1500);
+        });
+
+        function resetForm() {
+            document.getElementById('orderForm').reset();
+            document.getElementById('success-container').classList.add('hidden');
+            document.getElementById('form-container').classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
